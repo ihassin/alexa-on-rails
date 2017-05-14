@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # Amazon comes in with a post request
+  # resource :skills, only: [:create]
+  post '/' => 'skills#root', :as => :root
 end
