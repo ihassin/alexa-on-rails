@@ -30,7 +30,7 @@ bundle
 ### Running tests
 
 ```bash
-cucumber
+rake    # => Will run both RSpec and Cucumber tests
 ```
 
 ### Elastic Beanstalk command-line tool installation
