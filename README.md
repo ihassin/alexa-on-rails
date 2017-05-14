@@ -29,9 +29,20 @@ bundle
 
 ### Running tests
 
+## Automated unit and integration tests
+
 ```bash
 rake    # => Will run both RSpec and Cucumber tests
 ```
+
+## Manual integration tests
+
+You can test the intents and their replies using Amazon against your local dev without having to deploy the app by using [ngrok](https://ngrok.com).
+Run it in a shell and take note of the public DNS you get, for example: 
+```http://c68d7548.ngrok.io```
+
+Anything sent to that address will end up on your localhost:3000. This app, when run locally, will pick up the requests sent there.
+Before installing certificates that are needed for real Alexa interactions, you may use [postman](https://www.getpostman.com) to simulate them, posting to the _ngrok_ address.
 
 ### Elastic Beanstalk command-line tool installation
 
@@ -43,7 +54,6 @@ brew install awsebcli
 * Configuration
 * Dependencies
 * Database configuration
-* How to run tests
 * Deployment instructions
 
 ## Contribution guidelines
