@@ -6,7 +6,7 @@ RSpec.describe SkillsController, type: :controller do
     it 'echos the intent' do
       request = JSON.parse(File.read('spec/fixtures/hello_intent_request.json'))
       post :root, params: request, format: :json
-      expect(response.body).to match /#{request['request']['intent']['name']}/
+      expect(response.body).to match /I don't know why everyone is so angry/
     end
   end
 
