@@ -167,11 +167,11 @@ brew install awsebcli
 
 # Code of conduct
 
-See file.
+See [file](https://bitbucket.org/digitalrigbitbucketteam/buildit-alexa-skill/src/b2d808302cb3ac43969edff5721486f6341dcd5d/code-of-conduct.md?at=master&fileviewer=file-view-default).
 
 # License
 
-Creative commons, see file.
+Creative commons, see [file](https://bitbucket.org/digitalrigbitbucketteam/buildit-alexa-skill/src/b2d808302cb3ac43969edff5721486f6341dcd5d/license.md?at=master&fileviewer=file-view-default).
 
 # Support
 
