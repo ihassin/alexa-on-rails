@@ -1,0 +1,24 @@
+ListOffice what offices do we have
+ListOffice what offices we have
+ListOffice what offices there are
+ListOffice which offices do we have
+ListOffice which offices we have
+ListOffice which offices there are
+ListOffice to list the offices
+ListOffice to list our offices
+ListOffice to list the Buildit offices
+ListOffice to tell me which offices we have
+ListOffice to tell me our offices
+ListOffice to tell me which Buildit offices there are
+OfficeQuery do we have an office in {Office}
+OfficeQuery is there an office in {Office}
+OfficeQuery Does the {Office} office exist
+OfficeQuery if the {Office} office exists
+OfficeWorkers to list the {Office} {Staff}
+OfficeWorkers to list the {Staff} from {Office}
+OfficeWorkers to list the {Staff} from the {Office} office
+OfficeWorkers who works in {Office}
+OfficeWorkers who work in {Office}
+OfficeWorkers {Staff} who are from {Office}
+OfficeWorkers who is from the {Office} office
+OfficeWorkers who the {Staff} from {Office} are

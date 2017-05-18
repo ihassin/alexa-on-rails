@@ -1,0 +1,21 @@
+{
+  "intents": [
+    {
+      "intent": "ListOffice"
+    },
+    {
+      "intent": "OfficeWorkers",
+      "slots": [
+        {
+          "name": "Office",
+          "type": "LIST_OF_OFFICES"
+        },
+        {
+          "name": "Staff",
+          "type": "LIST_OF_STAFF"
+        }
+
+      ]
+    }
+  ]
+}

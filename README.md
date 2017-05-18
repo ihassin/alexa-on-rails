@@ -102,7 +102,9 @@ To do this, simply run the rails app locally and use the example intent schema f
 You can test intents and their replies when Amazon against your local dev by using [ngrok](https://ngrok.com).
 
 Run it in a shell and take note of the public DNS you get, for example:
-```http://c68d7548.ngrok.io```. When you run the app locally, anything sent to that address will end up on your localhost:3000.
+```http://c68d7548.ngrok.io```.
+
+When you run the app locally, anything sent to that address will end up on your localhost:3000.
 
 Install a self-signed certificate so that Amazon will route Alexa interactions to the _ngrok_ address. 
 Once that is done, register the skill with Amazon, and test live by issuing Alexa requests.
@@ -138,25 +140,38 @@ Make sure to replace the keywords enclosed in '$' to have your own data.
 * Create the certificate
 
 ```bash
-genrsa 2048 > private-key.pem
-openssl req -new -key private-key.pem -out csr.pem
+openssl genrsa 2048 > private-key.pem
 openssl req -new -x509 -days 365 -key private-key.pem -config cert.cnf -out certificate.pem
 ```
 Your server certificate is _certificate.pem_ and will be needed when you create the app. Copy the contents into the certificate text field in the portal.
 
-
 ## Register the skill with Amazon (dev version)
 
-- Portal
-- Questions
+- Enable for testing
+It's not very intuitive, but the progress-UI does not change when you select 'enable for testing'. Effectively, you can skip the production version questions if you're in testing mode. 
+
 - Certificate
+Paste the contents of ```certificate.pem``` in the text box.
+
 - Language selection
+Note that Alexa classifies English US and UK as two different languages. So if you program for US, but Alexa is set to UK, your skill will not be called.
+
 - Enable skill on device
+Use the Alexa app on your phone or Alexa device to enable the skill.
 
 ## Responding to requests while running locally 
 
-- ngrok
-- run in debug mode
+- Run ```ngrok``` to forward traffic to the app (assuming it's in /usr/local/bin)
+
+```bash
+/usr/local/bin/ngrok http -hostname=alexa01.ngrok.io 3000
+```
+- Run Rails in debug mode:
+```bash
+rails s
+```
+- Go to the Alexa dev page to the 'test' section and make sure your app gets called.
+You can also see ```ngrok``` status at ```http://localhost 4040```
 
 # Elastic Beanstalk command-line tool installation
 
