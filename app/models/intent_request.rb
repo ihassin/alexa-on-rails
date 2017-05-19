@@ -23,21 +23,27 @@ class IntentRequest
 
   def handle_office_workers_request(intent_request)
     Rails.logger.debug { "Intent: #{intent_request.to_json}" }
-    office = intent_request['slots']['Office']['value']
-    return "Hmmm, I'm not sure about your pronunciation." if office.nil?
-    workers_list = Office.where("name = ?", office).includes(:workers).first.workers.collect(&:name).sort
+
+    office_name = intent_request['slots']['Office']['value']
+    return "Hmmm, I'm not sure about your pronunciation." if office_name.nil?
+    office = Office.where("name = ?", office_name).includes(:workers).first
+    return "There's no one in #{office_name}. Why don't you apply to go there." if office.nil?
+
+    workers_list = office.workers.collect(&:name).sort
     *all, last = workers_list
     if all.size > 1
-      "Our people in #{office} are #{all.join(',')}, and last, but not least, #{last}."
+      "Our people in #{office_name} are, #{all.join(',')}, and last but not least is, #{last}."
+    elsif all.size == 1
+      "#{last} is the only person in #{office_name}."
     else
-      "#{last} is the only person in #{office}."
+      "There's no one in #{office_name}. Why don't you apply to go there."
     end
   end
 
   def handle_list_office_request(intent_request)
     office_list = Office.all.pluck(:name).sort
     *all, last = office_list
-    "Our offices are in #{all.join(',')}, and last, but not least, the #{last} office."
+    "Our offices are in #{all.join(',')}, and last but not least, is the #{last} office."
   end
 
   def handle_office_query_request(intent_request)
