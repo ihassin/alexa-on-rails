@@ -13,6 +13,8 @@ class IntentRequest
         speech = handle_office_workers_request(intent_request)
       when 'OfficeQuery'
         speech = handle_office_query_request(intent_request)
+      when 'AMAZON.StopIntent'
+        speech = 'Peace, out.'
       else
         speech = 'I am going to ignore that.'
     end
@@ -32,7 +34,7 @@ class IntentRequest
     workers_list = office.workers.collect(&:name).sort
     *all, last = workers_list
     if all.size > 1
-      "Our people in #{office_name} are, #{all.join(',')}, and last but not least is, #{last}."
+      "Our people in #{office_name} are, #{all.join(',')}, and last but not least, is #{last}."
     elsif all.size == 1
       "#{last} is the only person in #{office_name}."
     else
@@ -43,7 +45,7 @@ class IntentRequest
   def handle_list_office_request(intent_request)
     office_list = Office.all.pluck(:name).sort
     *all, last = office_list
-    "Our offices are in #{all.join(',')}, and last but not least, is the #{last} office."
+    "Our offices are in #{all.join(',')}, and last but not least, is the office in #{last}."
   end
 
   def handle_office_query_request(intent_request)
