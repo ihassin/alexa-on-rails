@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Office, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'build an intent schema' do
+    intent_schema = Alexa.new.build_intent
+    expect(intent_schema).to match /hi/
+  end
 end

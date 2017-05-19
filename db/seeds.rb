@@ -17,7 +17,10 @@ bangalore_office = Office.create(name: 'Bangalore')
 
 omaha_office.workers << Worker.create(name: 'Andy')
 
+denver_office.workers << Worker.create(name: 'Lizzie')
+denver_office.workers << Worker.create(name: 'Ben')
 denver_office.workers << Worker.create(name: 'Hap')
+denver_office.workers << Worker.create(name: 'Emily')
 denver_office.workers << Worker.create(name: 'Katie')
 denver_office.workers << Worker.create(name: 'Paul')
 denver_office.workers << Worker.create(name: 'Mike')

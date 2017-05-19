@@ -15,6 +15,8 @@ class IntentRequest
         speech = handle_office_query_request(intent_request)
       when 'AMAZON.StopIntent'
         speech = 'Peace, out.'
+      when 'Bookit'
+        speech = handle_bookit_request(intent_request)
       else
         speech = 'I am going to ignore that.'
     end
@@ -36,7 +38,7 @@ class IntentRequest
     if all.size > 1
       "Our people in #{office_name} are, #{all.join(',')}, and last but not least, is #{last}."
     elsif all.size == 1
-      "#{last} is the only person in #{office_name}."
+      "#{last} is the only person in #{office_name}. Poor #{last}"
     else
       "There's no one in #{office_name}. Why don't you apply to go there."
     end
@@ -46,6 +48,18 @@ class IntentRequest
     office_list = Office.all.pluck(:name).sort
     *all, last = office_list
     "Our offices are in #{all.join(',')}, and last but not least, is the office in #{last}."
+  end
+
+  def handle_bookit_request(intent_request)
+    start_date = intent_request['slots']['StartDate']['value']
+    end_date = intent_request['slots']['EndDate']['value']
+
+    all_rooms = Bookit.new.get_rooms 'http://bookit.riglet.io:8888/rooms/nyc'
+    booked_rooms = Bookit.new.get_rooms "http://bookit.riglet.io:8888/rooms/nyc/meetings?start=#{start_date}&end=#{end_date}"
+    rooms = all_rooms - booked_rooms
+
+    *all, last = rooms.sort
+    "Rooms #{all.join(',')}, and #{last}, are vacant for those dates."
   end
 
   def handle_office_query_request(intent_request)
