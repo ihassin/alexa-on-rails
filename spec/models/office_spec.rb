@@ -15,7 +15,7 @@ RSpec.describe 'Office' do
     end
 
     it 'handles multiple offices' do
-      expect(@intent_request.handle_list_office_request(['NY', 'London'])).to match /Our offices are in NY, and last but not least, is the office in London./
+      expect(@intent_request.handle_list_office_request(['NY', 'London'])).to match /Our offices are in NY, and last but not least is the office in London./
     end
   end
 
