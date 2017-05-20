@@ -56,7 +56,7 @@ class IntentRequest
 
     *all, last = office_list
     if office_list.size > 1
-      "Our offices are in #{all.join(',')}, and last but not least, is the office in #{last}."
+      "Our offices are in #{all.join(',')}, and last but not least is the office in #{last}."
     elsif office_list.size == 1
       "#{last} is the only office."
     end

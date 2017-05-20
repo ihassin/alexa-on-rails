@@ -12,7 +12,9 @@ def start_server
     break if line[0] == ''
     headers[line[0].chop] = line[1].strip
   end
-  return client, headers
+  # Read the POST data as specified in the header
+  data = client.read(headers['Content-Length'].to_i)
+  return client, data
 end
 
 def reply(socket, result)
@@ -32,31 +34,26 @@ def reply(socket, result)
   socket.close
 end
 
+def play_audio file
+  fork { exec 'afplay ' + file }
+end
+
 RSpec.describe SkillsController, type: :controller do
 
   describe 'audio tests' do
     it 'responds to ListOffice' do
-      Office.create [{name: 'London'}, {name: 'Tel Aviv'}]
+      Office.create [{ name: 'London' }, { name: 'Tel Aviv' }]
 
-      pid = fork { exec 'afplay spec/audio/list-office.m4a' }
+      pid = play_audio 'spec/audio/list-office.m4a'
 
-      client, headers = start_server
-
-      # Read the POST data as specified in the header
-      data = client.read(headers['Content-Length'].to_i)
-
-      # result = !(data =~ /ListOffice/).nil?
-      # reply client, 'for list office ' + (result ? 'passed.' : 'failed.')
-      #
-      # expect(result).to be true
+      client, data = start_server
 
       post :root, params: JSON.parse(data), format: :json
-      result = !(response.body =~ /Our offices are in/).nil?
+      result = !(response.body =~ /Our offices are in London/).nil?
 
       reply client, 'The test ' + (result ? 'passed' : 'failed') + '. The result was ' + JSON.parse(response.body)['response']['outputSpeech']['text']
       expect(result).to be true
     end
-
   end
 
   describe 'Intents' do
