@@ -1,9 +1,7 @@
 class IntentRequest
-  def init params
+  def respond intent_request
     output = AlexaRubykit::Response.new
 
-    request = params['request']
-    intent_request = request['intent']
     intent_name = intent_request['name']
 
     Rails.logger.debug { "IntentRequest: #{intent_request.to_json}" }
