@@ -1,0 +1,13 @@
+{
+  "request":
+  {
+    "type":"IntentRequest",
+    "requestId":"amzn1.echo-api.request.9371dc93-55f1-4958-acf6-aa615340f4b3",
+    "timestamp":"2017-05-20T01:08:54Z",
+    "locale":"en-GB",
+    "intent":{
+      "name":"ListOffice",
+      "confirmationStatus":"NONE"
+    }
+  }
+}
