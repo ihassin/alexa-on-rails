@@ -6,10 +6,11 @@ This is an Alexa skill that spits out facts about Buildit
 
 Alexa is awesome. It's the future. It's a technical challenge:
 
-* Do not use Lambda (like most of the demos do), but rather host the skill's implementation on a server, forcing us to learn how to install certificates.
-* Do not use JS (like most of the demos do), but rather use Ruby.
-* TDD our way out of this, as most demos do not refer to command-line testing frameworks.
-* Write an Alexa skill that's backed by a data store, and can handle conversations.
+* To not use Lambda (like most of the demos do), but rather host the skill's implementation on a server, forcing us to learn how to install certificates.
+* To not use JS (like most of the demos do), but rather use Ruby/Rails.
+* To find a way to TDD our way out of this, as most demos do not refer to command-line testing frameworks.
+* To write an Alexa skill that's backed by a data store
+* To be able to handle conversations.
 
 # Example usage
 
@@ -40,62 +41,6 @@ rake    # => Will run both RSpec and Cucumber tests
 ## Postman against localhost
 
 Before installing certificates that are needed for real Alexa interactions, you may use [postman](https://www.getpostman.com) to simulate them, posting to localhost:3000.
-To do this, simply run the rails app locally and use the example intent schema from postman:
-```json
-{
-  "version": "1.0",
-  "session": {
-    "new": false,
-    "sessionId": "amzn1.echo-api.session.abeee1a7-aee0-41e6-8192-e6faaed9f5ef",
-    "application": {
-      "applicationId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
-    },
-    "attributes": {},
-    "user": {
-      "userId": "amzn1.account.AM3B227HF3FAM1B261HK7FFM3A2",
-      "permissions": {
-        "consentToken": null
-      },
-      "accessToken": null
-    }
-  },
-  "context": {
-    "System": {
-      "application": {
-        "applicationId": "amzn1.echo-sdk-ams.app.000000-d0ed-0000-ad00-000000d00ebe"
-      },
-      "user": {
-        "userId": "amzn1.account.AM3B227HF3FAM1B261HK7FFM3A2",
-        "permissions": {
-          "consentToken": null
-        },
-        "accessToken": null
-      },
-      "device": {
-        "deviceId": null,
-        "supportedInterfaces": {
-          "AudioPlayer": {}
-        }
-      },
-      "apiEndpoint": "https://api.amazonalexa.com/"
-    },
-    "AudioPlayer": {
-      "offsetInMilliseconds": 0,
-      "playerActivity": "IDLE"
-    }
-  },
-  "request": {
-    "type": "IntentRequest",
-    "requestId": "amzn1.echo-api.request.6919844a-733e-4e89-893a-fdcb77e2ef0d",
-    "timestamp": "2017-05-14T12:41:46.788Z",
-    "locale": "en-US",
-    "intent": {
-      "name": "hello",
-      "slots": {}
-    }
-  }
-}
-```
 
 ## Amazon and _ngrok_ against localhost
 
