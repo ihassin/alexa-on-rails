@@ -35,7 +35,7 @@ RSpec.describe SkillsController, type: :controller do
         expect(response.body).to match /London is the only office/
       end
 
-      it 'reports a multiple offices' do
+      it 'reports multiple offices' do
         request = JSON.parse(File.read('spec/fixtures/list_offices.json'))
         Office.create [{name: 'London'}, {name: 'Tel Aviv'}]
         post :root, params: request, format: :json
