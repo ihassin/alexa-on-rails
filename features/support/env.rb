@@ -1,7 +1,8 @@
 require 'cucumber/rails'
 require 'test_helpers'
-require 'selenium-webdriver'
-require 'capybara/cucumber'
+ENV['RAILS_ENV'] ||= 'test'
+# require 'selenium-webdriver'
+# require 'capybara/cucumber'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any

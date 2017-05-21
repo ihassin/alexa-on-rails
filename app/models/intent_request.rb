@@ -1,7 +1,5 @@
 class IntentRequest
   def respond intent_request
-    output = AlexaRubykit::Response.new
-
     intent_name = intent_request['name']
 
     Rails.logger.debug { "IntentRequest: #{intent_request.to_json}" }
@@ -21,13 +19,14 @@ class IntentRequest
         speech = 'I am going to ignore that.'
     end
 
+    output = AlexaRubykit::Response.new
     output.add_speech(speech)
     output.build_response(true)
   end
 
   def prepare_office_workers_request(intent_request)
     office_name = intent_request['slots']['Office']['value']
-    office = Office.where("name = ?", office_name).includes(:workers).first
+    office = Office.where('name = ?', office_name).includes(:workers).first
     workers = office.workers.collect(&:name).sort
     handle_office_workers_request(office_name, office, workers)
   end
@@ -83,17 +82,17 @@ class IntentRequest
     return 'There are no vacant rooms for those dates.' if rooms.empty?
 
     *all, last = rooms.sort
-    p = rooms.size == 1 ? 'is' : 'are'
-    speech = "Of #{all_rooms.size}, #{rooms.size} #{p} available. "
+    plural_form = rooms.size == 1 ? 'is' : 'are'
+    speech = "Of #{all_rooms.size}, #{rooms.size} #{plural_form} available. "
 
-    last_speech = p
+    last_speech = plural_form
     vacant_speech = "#{last} #{last_speech} vacant for those dates."
 
     speech + (all.empty? ? "#{vacant_speech}" : "#{all.join(',')} and #{vacant_speech}")
   end
 
   def prepare_office_query_request(intent_request)
-    handle_office_query_request = intent_request['slots']['Office']['value']
+    handle_office_query_request intent_request['slots']['Office']['value']
   end
 
   def handle_office_query_request(wanted_office)
@@ -107,5 +106,4 @@ class IntentRequest
       "Yes, we do have an office in #{wanted_office}"
     end
   end
-
 end

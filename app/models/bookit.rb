@@ -1,5 +1,3 @@
-require 'open-uri'
-
 class Bookit
   def get_rooms(query_url)
     rooms = []
