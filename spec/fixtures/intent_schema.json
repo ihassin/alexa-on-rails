@@ -1,0 +1,45 @@
+{
+  "intents": [
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "StartDate",
+          "type": "AMAZON.DATE"
+        },
+        {
+          "name": "EndDate",
+          "type": "AMAZON.DATE"
+        }
+      ],
+      "intent": "Bookit"
+    },
+    {
+      "intent": "ListOffice"
+    },
+    {
+      "slots": [
+        {
+          "name": "Office",
+          "type": "LIST_OF_OFFICES"
+        }
+      ],
+      "intent": "OfficeQuery"
+    },
+    {
+      "slots": [
+        {
+          "name": "Office",
+          "type": "LIST_OF_OFFICES"
+        },
+        {
+          "name": "Staff",
+          "type": "LIST_OF_STAFF"
+        }
+      ],
+      "intent": "OfficeWorkers"
+    }
+  ]
+}
