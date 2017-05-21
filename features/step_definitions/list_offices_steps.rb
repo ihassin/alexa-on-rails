@@ -1,3 +1,5 @@
+require_relative '../../lib/test_helpers.rb'
+
 Given(/^we have offices "([^"]*)" and "([^"]*)"$/) do |office1, office2|
   Office.create [{ name: @office1 = office1 }, { name: @office2 = office2 }]
 end

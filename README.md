@@ -33,7 +33,8 @@ bundle
 # Automated unit and integration tests
 
 ```bash
-rake    # => Will run both RSpec and Cucumber tests
+rake     # => Will run RSpec unit tests
+cucumber # => Will run audio integration tests
 ```
 
 # Manual integration tests
