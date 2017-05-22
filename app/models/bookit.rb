@@ -12,7 +12,7 @@ class Bookit
     rooms = []
     doc = JSON.parse(open(query_url).read)
     doc.each do |room|
-      rooms << room['room']['name'] unless room['meetings'].empty?
+      rooms << room['room']['name'] unless room['meetings'].size < 9
     end
     rooms
   end

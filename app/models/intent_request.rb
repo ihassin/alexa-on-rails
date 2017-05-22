@@ -26,6 +26,7 @@ class IntentRequest
 
   def prepare_office_workers_request(intent_request)
     office_name = intent_request['slots']['Office']['value']
+    return "Hmmm, I'm not sure about your pronunciation." if office_name.nil? || office_name.empty?
     office = Office.where('name = ?', office_name).includes(:workers).first
     workers = office.workers.collect(&:name).sort
     handle_office_workers_request(office_name, office, workers)
@@ -33,7 +34,6 @@ class IntentRequest
 
   def handle_office_workers_request(office_name, office, workers)
 
-    return "Hmmm, I'm not sure about your pronunciation." if office_name.nil? || office_name.empty?
     return "There's no one in #{office_name}. Why don't you apply to go there." if office.nil?
 
     *all, last = workers
@@ -63,18 +63,20 @@ class IntentRequest
 
   def prepare_bookit_request(intent_request)
     begin
-      start_date = intent_request['slots']['StartDate']['value']
+      start_date = intent_request['slots']['StartDate']['value'] rescue nil
       end_date = intent_request['slots']['EndDate']['value'] rescue nil
+
+      start_date = Date.today.to_s if start_date.nil?
       end_date = Date.parse(start_date) + 1 if end_date.nil?
     rescue StandardError => ex
       return 'I had trouble with the dates, please retry your query. The error was ' + ex.message
     end
     all_rooms = Bookit.new.get_rooms 'http://bookit.riglet.io:8888/rooms/nyc'
     booked_rooms = Bookit.new.get_booked_rooms "http://bookit.riglet.io:8888/rooms/nyc/meetings?start=#{start_date}&end=#{end_date}"
-    handle_bookit_request all_rooms, booked_rooms
+    handle_bookit_request all_rooms, booked_rooms, start_date, end_date
   end
 
-  def handle_bookit_request(all_rooms, booked_rooms)
+  def handle_bookit_request(all_rooms, booked_rooms, start_date, end_date)
     return 'There are no rooms registered' if all_rooms.empty?
     return 'All rooms seem to be vacant then' if booked_rooms.empty?
     rooms = all_rooms - booked_rooms
@@ -86,7 +88,7 @@ class IntentRequest
     speech = "Of #{all_rooms.size}, #{rooms.size} #{plural_form} available. "
 
     last_speech = plural_form
-    vacant_speech = "#{last} #{last_speech} vacant for those dates."
+    vacant_speech = "#{last} #{last_speech} vacant between #{start_date} and #{end_date}"
 
     speech + (all.empty? ? "#{vacant_speech}" : "#{all.join(',')} and #{vacant_speech}")
   end
