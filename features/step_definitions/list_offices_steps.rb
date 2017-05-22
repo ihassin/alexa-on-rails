@@ -5,6 +5,7 @@ Given(/^we have offices "([^"]*)" and "([^"]*)"$/) do |office1, office2|
 end
 
 When(/^I ask Alexa to list the offices$/) do
+  @ngrok = fork { exec 'ngrok http -hostname=alexa01.ngrok.io 3000' }
   play_audio 'spec/audio/list-office.m4a'
 end
 
@@ -14,5 +15,9 @@ Then(/^it lists them correctly$/) do
   post '/', JSON.parse(data), format: :json
   result = !(last_response =~ /Our offices are in #{@office1}/).nil?
   reply client, 'The test ' + (result ? 'passed' : 'failed') + '. The result was ' + JSON.parse(last_response.body)['response']['outputSpeech']['text']
+  sleep 2
+  Process.kill("HUP", @ngrok)
+  Process.wait
+
   expect(result).to be true
 end
