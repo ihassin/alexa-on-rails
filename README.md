@@ -141,4 +141,4 @@ Creative commons, see [file](https://bitbucket.org/digitalrigbitbucketteam/build
 
 # Support
 
-* Repo owner or admin: itamar.hassin@wipro.com
+* Repo owner or admin: itamar.hassin@wipro.com (ihassin@mac.com)
