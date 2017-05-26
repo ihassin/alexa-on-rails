@@ -34,7 +34,6 @@ bundle
 
 ```bash
 rake     # => Will run RSpec unit tests
-cucumber # => Will run audio integration tests
 ```
 
 # Manual integration tests
