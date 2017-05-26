@@ -4,21 +4,21 @@ require 'socket'
 
 RSpec.describe SkillsController, type: :controller do
 
-  # describe 'audio tests' do
-  #   it 'responds to ListOffice' do
-  #     Office.create [{ name: 'London' }, { name: 'Tel Aviv' }]
-  #
-  #     pid = play_audio 'spec/audio/list-office.m4a'
-  #
-  #     client, data = start_server
-  #
-  #     post :root, params: JSON.parse(data), format: :json
-  #     result = !(response.body =~ /Our offices are in London/).nil?
-  #
-  #     reply client, 'The test ' + (result ? 'passed' : 'failed') + '. The result was ' + JSON.parse(response.body)['response']['outputSpeech']['text']
-  #     expect(result).to be true
-  #   end
-  # end
+  describe 'audio tests', :integration do
+    it 'responds to ListOffice' do
+      Office.create [{ name: 'London' }, { name: 'Tel Aviv' }]
+
+      pid = play_audio 'spec/audio/list-office.m4a'
+
+      client, data = start_server
+
+      post :root, params: JSON.parse(data), format: :json
+      result = !(response.body =~ /Our offices are in London/).nil?
+
+      reply client, 'The test ' + (result ? 'passed' : 'failed') + '. The result was ' + JSON.parse(response.body)['response']['outputSpeech']['text']
+      expect(result).to be true
+    end
+  end
 
   describe 'Intents' do
     describe 'Office IntentRequest' do
