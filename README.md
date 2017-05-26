@@ -33,7 +33,7 @@ bundle
 # Automated unit and integration tests
 
 ```bash
-rake     # => Will run RSpec unit tests
+rake     # => Will run RSpec unit tests (integration tests are excluded)
 ```
 
 # Manual integration tests
