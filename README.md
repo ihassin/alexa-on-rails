@@ -33,7 +33,13 @@ bundle
 # Automated unit and integration tests
 
 ```bash
-rake     # => Will run RSpec unit tests (integration tests are excluded)
+rake     # => Will run RSpec unit and integration tests (audio integration tests are excluded)
+rake spec
+bundle exec rake
+bundle exec rake spec
+
+rspec
+rspec --tag audio # => Will run the full integration suite with audio. Make sure ngrok is running.
 ```
 
 # Manual integration tests

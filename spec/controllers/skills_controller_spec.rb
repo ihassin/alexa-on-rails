@@ -1,23 +1,23 @@
 require 'rails_helper'
 require 'test_helpers'
-require 'socket'
 
 RSpec.describe SkillsController, type: :controller do
 
-  describe 'audio tests', :integration do
-    it 'responds to ListOffice' do
+  describe 'audio tests', :audio do
+    it 'responds to ListOffice intent' do
       Office.create [{ name: 'London' }, { name: 'Tel Aviv' }]
 
-      pid = play_audio 'spec/audio/list-office.m4a'
+      pid = play_audio 'spec/fixtures/list-office.m4a'
 
       client, data = start_server
 
       post :root, params: JSON.parse(data), format: :json
-      result = !(response.body =~ /Our offices are in London/).nil?
+      result = (response.body =~ /(?=London)(?=.*Aviv)/) > 0
 
-      reply client, 'The test ' + (result ? 'passed' : 'failed') + '. The result was ' + JSON.parse(response.body)['response']['outputSpeech']['text']
+      reply client, 'The list offices intent test ' + (result ? 'passed' : 'failed')
       expect(result).to be true
     end
+
   end
 
   describe 'Intents' do
@@ -44,7 +44,7 @@ RSpec.describe SkillsController, type: :controller do
     end
   end
 
-  describe 'Launch Request' do
+  describe 'Launch request' do
     it 'responds correctly' do
       request = JSON.parse(File.read('spec/fixtures/launch_request.json'))
       post :root, params: request, format: :json
