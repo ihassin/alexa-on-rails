@@ -1,8 +1,8 @@
 default: &default
   adapter: mysql2
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("NARUI_DB_USERNAME") %>
-  password: <%= ENV.fetch("NARUI_DB_PASSWORD") %>
+  username: <%= ENV.fetch("ALEXA_DB_USERNAME") %>
+  password: <%= ENV.fetch("ALEXA_DB_PASSWORD") %>
   timeout: 5000
 
 development:

@@ -28,6 +28,15 @@ Run
 bundle
 ```
 
+## Setting some environment variables
+
+The database connection use the following environment variables:
+
+```bash
+export ALEXA_DB_USERNAME=<insert your db username here>
+export ALEXA_DB_PASSWORD=<insert your db password here>
+```
+
 ## Running tests
 
 # Automated unit and integration tests
