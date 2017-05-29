@@ -1,5 +1,7 @@
-class OfficeQueryIntent
-  def prepare_request(intent_request)
+class OfficeQueryIntent < AlexaIntent
+  def prepare_request(intent_request, session)
+    log_session session
+
     handle_request intent_request['slots']['Office']['value']
   end
 

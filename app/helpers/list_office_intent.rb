@@ -1,5 +1,7 @@
-class ListOfficeIntent
-  def prepare_request
+class ListOfficeIntent < AlexaIntent
+  def prepare_request(intent_request, session)
+    log_session session
+
     handle_request Office.all.pluck(:name).sort
   end
 

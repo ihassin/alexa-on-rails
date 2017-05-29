@@ -6,7 +6,7 @@ class SkillsController < ApplicationController
       when 'LaunchRequest'
         response = LaunchRequest.new.respond
       when 'IntentRequest'
-        response = ApplicationHelper::IntentRequest.new.respond(params['request']['intent'])
+        response = ApplicationHelper::IntentRequest.new.respond(params['request']['intent'], params['session'])
     end
     render json: response
   end

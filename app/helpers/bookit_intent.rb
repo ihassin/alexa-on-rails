@@ -1,5 +1,7 @@
-class BookitIntent
-  def prepare_request(intent_request)
+class BookitIntent < AlexaIntent
+  def prepare_request(intent_request, session)
+    log_session session
+
     begin
       start_date = intent_request['slots']['StartDate']['value'] rescue nil
       end_date = intent_request['slots']['EndDate']['value'] rescue nil
