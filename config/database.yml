@@ -1,5 +1,5 @@
 default: &default
-  adapter: mysql2
+  adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV.fetch("ALEXA_DB_USERNAME") %>
   password: <%= ENV.fetch("ALEXA_DB_PASSWORD") %>
@@ -7,18 +7,15 @@ default: &default
 
 development:
   <<: *default
-  database: alexa_dev
+  database: db/alexa_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test: &test
   <<: *default
-  database: alexa_test
+  database: db/alexa_test
 
 production:
   <<: *default
-  database: alexa_prod
-
-cucumber:
-  <<: *test
+  database: db/alexa_prod
