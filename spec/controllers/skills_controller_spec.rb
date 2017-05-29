@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'test_helpers'
 
 RSpec.describe SkillsController, type: :controller do
 
