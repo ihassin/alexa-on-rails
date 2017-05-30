@@ -2,3 +2,4 @@
 --format documentation
 --tag ~audio
 --tag ~integration
+--tag ~canary
