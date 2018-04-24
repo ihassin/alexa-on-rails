@@ -12,8 +12,7 @@ node {
         sh 'bundle install'
     }
     stage('Run tests') {
-        sh 'printenv'
-        sh "bundle exec rake"
+        sh 'bundle exec rake'
     }
 //    stage('Deploy') {
 //        sh 'bundle exec cap production deploy'
