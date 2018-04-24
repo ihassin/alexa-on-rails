@@ -12,7 +12,8 @@ node {
         sh 'bundle install'
     }
     stage('Run tests') {
-        sh "ALEXA_DB_PASSWORD=${ENV.ALEXA_DB_PASSWORD} ALEXA_DB_USERNAME=${ALEXA_DB_USERNAME} bundle exec rake"
+        sh 'printenv'
+        sh "bundle exec rake"
     }
 //    stage('Deploy') {
 //        sh 'bundle exec cap production deploy'
