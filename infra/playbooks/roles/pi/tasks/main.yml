@@ -1,0 +1,93 @@
+---
+  - name: Update apt cache if needed
+    apt: update_cache=yes cache_valid_time=3600
+
+#  - name: Upgrade OS
+#    apt: upgrade=dist force=yes
+
+  - name: Remove components
+    apt: pkg={{item}} state=absent purge=yes force=yes
+    with_items:
+      - wolfram-engine
+      - scratch
+      - gnome*
+      - gvfs*
+      - penguinspuzzle
+      - lightdm
+      - cups*
+      - minecraft-pi
+
+  - name: Install needed packages
+    apt: pkg={{item}} state=installed
+    with_items:
+      - cron
+      - logrotate
+      - curl
+      - git
+      - tmux
+#      - pmount
+#      - smbclient
+#      - samba
+#      - samba-common-bin
+      - ufw
+      - xrdp
+      - bundler
+#      - libmysqlclient-dev
+      - libsqlite3-dev
+      - build-essential
+      - nginx
+      - keepalived
+#      - xvfb
+#      - glusterfs-server
+      - vim
+#      - emacs
+#      - jenkins
+      - screen
+
+#First I added the key for the LTS version to my repository
+#
+#wget -q -O - http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key | sudo apt-key add -
+#Then I updated /etc/apt/sources.list: adding this line to the top of the file
+#
+#deb http://pkg.jenkins-ci.org/debian-stable binary/
+#Updated the local package index, then finally install Jenkins:
+#
+#sudo apt-get update
+#sudo apt-get install jenkins
+
+  - name: Check if anything needs autoremoving
+    shell: apt-get -y --dry-run autoremove | grep -q "0 to remove"
+    register: check_autoremove
+    ignore_errors: True
+    changed_when: False
+    check_mode: no
+
+  - name: Autoremove unused packages
+    command: apt-get -y autoremove
+    when: "check_autoremove.rc != 0"
+
+  - name: Set vi preferences
+    copy: src=vimrc dest=/home/{{user}}/.vimrc owner={{user}}
+
+  - name: Make sure user is part of plugdev
+    user: name={{user}} groups="plugdev"
+
+  - name: FW Allow everything
+    ufw: state=enabled policy=allow
+
+  - name: UFW allow SSH
+    ufw: rule=allow name={{item}}
+    with_items:
+      - OpenSSH
+
+  - name: Create the deploy user
+    user: name={{user}} comment="deploy user" generate_ssh_key=yes ssh_key_bits=2048 state=present password={{password}} shell=/bin/bash
+
+  - name: Copy ssh keys to the user's .ssh directory
+    copy: src=ita.pub dest=/home/{{user}}/.ssh/authorized_keys mode=0700 owner={{user}} group={{user}}
+
+  - name: Set {{user}} as sudoer
+    lineinfile: dest=/etc/sudoers line="{{user}} ALL=(ALL) NOPASSWD:ALL"
+
+#  - name: Copy switch.py
+#    copy: src=switch.py dest=/home/{{user}} owner={{user}}

@@ -1,0 +1,46 @@
+---
+  - name: Update apt cache if needed
+    apt: update_cache=yes cache_valid_time=3600 autoremove=yes
+
+  - name: Install needed packages for the app
+    apt: pkg={{item}} state=installed autoremove=yes
+    with_items:
+      - software-properties-common
+      - build-essential
+      - nginx
+
+  - name: Add RAILS env variable
+    lineinfile: dest=/etc/environment line={{item}} insertafter='EOF' state=present create=yes
+    with_items:
+      - "RAILS_ENV={{rails_env}}"
+      - "SECRET_KEY_BASE={{rails_secret_token}}"
+
+  - name: Make assets directory
+    file: path=/home/{{user}}/{{appname}}/shared/assets owner={{user}} state=directory
+
+#  - name: Create dummy file for Rails/Cap 3 (assets will appear magically)
+#    copy: src=manifest.yml dest=/home/{{user}}/{{appname}}/shared/assets/manifest.yml owner={{user}}
+
+  - name: Make directory for database.yml
+    file: path=/home/{{user}}/{{appname}}/shared/config owner={{user}} state=directory
+
+  - name: Copy database.yml
+    template: src={{database_yml}} dest=/home/{{user}}/{{appname}}/shared/config/database.yml owner={{user}}
+
+  - name: Make cert directory
+    file: path=/home/{{user}}/{{appname}}/shared/config/certs owner={{user}} state=directory
+
+  - name: Copy cert
+    copy: src=~/projects/alexa/certs/goa/{{cert_file_name}} dest=/home/{{user}}/{{appname}}/shared/config/certs owner={{user}}
+
+  - name: Own app's top dir
+    file: path=/home/{{user}}/{{appname}} mode=0755 recurse=true
+
+  - name: Copy bitbucket ssh keys to the user's .ssh directory
+    copy: src=~/.ssh/id_rsa_bitbucket dest=/home/{{user}}/.ssh/id_rsa_bitbucket
+
+  - name: Set up ssh config file
+    copy: src=ssh_config dest=/home/{{user}}/.ssh/config owner={{user}}
+
+  - name: Set up cron for logrotate
+    cron: name="Logrotate" job="logrotate -v /etc/logrotate.d/{{appname}}" state=present special_time=daily user={{user}}

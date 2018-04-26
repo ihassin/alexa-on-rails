@@ -1,0 +1,12 @@
+---
+- hosts: staging-web-server
+
+  tasks:
+     - debug: msg="web reading from {{env_name}}"
+
+  roles:
+    - { role: kamaln7.swapfile, swapfile_size: 1GB, swapfile_swappiness: 10 }
+    - common
+    - geerlingguy.ruby
+    - narui
+    - test-env

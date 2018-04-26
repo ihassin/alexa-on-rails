@@ -1,0 +1,15 @@
+---
+env_name: prod web server
+rails_env: production
+user: pi
+password: pi
+
+database_yml: prod-database.yml
+
+rails_secret_token: 62425bdbb0fd3cc8e15a58a0076c09f8c493151eabc54399a2bb146bdf09133907ebbc04b103f0e66742cc552624f68ff222d21fabf6cac9b027b53ee4ea8d12
+
+cert_file_name: certificate.pem
+
+appname: goa
+domain: pi2
+

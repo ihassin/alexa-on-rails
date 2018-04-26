@@ -1,0 +1,5 @@
+[prod-web-server]
+pi2
+
+[prod:children]
+prod-web-server

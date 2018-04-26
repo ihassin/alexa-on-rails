@@ -1,0 +1,16 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: <%= ENV['NARUI_DB_USERNAME'] %>
+  password: <%= ENV['NARUI_DB_PASSWORD'] %>
+
+# Database connection for rSpec
+test: &test
+  <<: *default
+  host: {{database_host}}
+  database: {{database_name}}
+
+# Database connection for Cucumber
+cucumber:
+  <<: *test

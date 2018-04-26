@@ -1,0 +1,9 @@
+[staging-web-server]
+stage.newsalertapp.com
+
+[staging-db-server]
+stage-db.newsalertapp.com
+
+[staging:children]
+staging-web-server
+staging-db-server
