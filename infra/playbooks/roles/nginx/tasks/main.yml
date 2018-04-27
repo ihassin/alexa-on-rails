@@ -19,10 +19,10 @@
     file: path=/etc/nginx/sites-enabled/default state=absent
 
   - name: Copy nginx conf file to available
-    template: src=nginx.conf dest=/etc/nginx/sites-available/{{appname}}.conf owner={{user}}
+    template: src=nginx.conf dest=/etc/nginx/sites-available/02-{{appname}}.conf owner={{user}}
 
   - name: Symlink it to enabled
-    file: src=/etc/nginx/sites-available/{{appname}}.conf dest=/etc/nginx/sites-enabled/00-{{appname}}.conf state=link
+    file: src=/etc/nginx/sites-available/02-{{appname}}.conf dest=/etc/nginx/sites-enabled/02-{{appname}}.conf state=link
 
   - name: User group operations
     file: path=/home/{{user}}/{{appname}} group=www-data recurse=true

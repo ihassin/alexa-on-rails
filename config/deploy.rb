@@ -7,7 +7,7 @@ set :repo_url, 'git@github.com:ihassin/alexa-on-rails.git'
 set :git_shallow_clone, 1
 set :branch, 'master'
 
-set :deploy_to, '/home/pi/goa'
+set :deploy_to, '/home/pi/alexa'
 
 set :format, :pretty
 set :log_level, :info
@@ -121,7 +121,7 @@ namespace :deploy do
       info '*** Starting ngrok'
       with rails_env: fetch(:rails_env) do
         within current_path do
-          execute *%w[/home/pi/ngrok http -hostname=goa.ngrok.io 80 > ngrok.log &]
+          execute *%w[/home/pi/ngrok http -hostname=alexa.ngrok.io 80 > ngrok.log &]
         end
       end
     end

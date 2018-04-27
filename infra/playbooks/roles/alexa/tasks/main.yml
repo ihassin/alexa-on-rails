@@ -31,7 +31,7 @@
     file: path=/home/{{user}}/{{appname}}/shared/config/certs owner={{user}} state=directory
 
   - name: Copy cert
-    copy: src=~/projects/alexa/certs/goa/{{cert_file_name}} dest=/home/{{user}}/{{appname}}/shared/config/certs owner={{user}}
+    copy: src=~/projects/alexa/certs/alexa/{{cert_file_name}} dest=/home/{{user}}/{{appname}}/shared/config/certs owner={{user}}
 
   - name: Own app's top dir
     file: path=/home/{{user}}/{{appname}} mode=0755 recurse=true

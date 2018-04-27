@@ -10,6 +10,5 @@ rails_secret_token: 62425bdbb0fd3cc8e15a58a0076c09f8c493151eabc54399a2bb146bdf09
 
 cert_file_name: certificate.pem
 
-appname: goa
+appname: alexa
 domain: pi2
-

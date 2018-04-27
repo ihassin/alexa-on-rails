@@ -5,6 +5,5 @@
      - debug: msg="web reading from {{env_name}}"
 
   roles:
-    - pi
     - nginx
-    - goa
+    - alexa
