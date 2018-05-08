@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170529152208) do
 
   create_table "workers", force: :cascade do |t|
     t.string "name"
+    t.string "sms"
     t.integer "office_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

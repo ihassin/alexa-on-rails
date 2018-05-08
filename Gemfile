@@ -5,13 +5,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.1.1'
-gem 'sqlite3'
-gem 'puma', '~> 3.7'
-gem 'alexa_rubykit'
-gem 'rake'
-gem 'twilio-ruby'
 gem 'alexa_generator'
+gem 'alexa_rubykit'
+gem 'puma', '~> 3.7'
+gem 'rails', '~> 5.1.1'
+gem 'rake'
+gem 'ruby-trello'
+gem 'sqlite3'
+gem 'twilio-ruby'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

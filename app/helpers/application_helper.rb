@@ -6,6 +6,8 @@ module ApplicationHelper
       Rails.logger.debug { "IntentRequest: #{intent_request.to_json}" }
 
       case intent_name
+        when 'Dashboard'
+          speech = DashboardQueryIntent.new.prepare_request intent_request, session
         when 'ListOffice'
           speech = ListOfficeIntent.new.prepare_request intent_request, session
         when 'OfficeWorkers'
