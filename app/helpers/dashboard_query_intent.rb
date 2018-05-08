@@ -13,6 +13,7 @@ class DashboardQueryIntent < AlexaIntent
   end
 
   def handle_request
-    ongoing_tasks = Trello::List.find(ENV['TRELLO_BOARD']).cards.sample(5).map(&:name).join(',')
+    list = Trello::List.find(ENV['TRELLO_BOARD']).cards.sample(5).map(&:name).join(',')
+    "Here's a sample of what we're working on. #{list}"
   end
 end

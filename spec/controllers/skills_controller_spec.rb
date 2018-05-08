@@ -3,6 +3,15 @@ require 'rails_helper'
 RSpec.describe SkillsController, :integration, type: :controller do
 
   describe 'Intents' do
+
+    describe 'Dashboard request' do
+      it 'responds correctly' do
+        request = JSON.parse(File.read('spec/fixtures/dashboard_request.json'))
+        post :root, params: request, format: :json
+        expect(response.body).to match /Here's a sample/
+      end
+    end
+
     describe 'Office IntentRequest' do
       it 'reports no offices' do
         request = JSON.parse(File.read('spec/fixtures/list_offices.json'))
@@ -33,4 +42,5 @@ RSpec.describe SkillsController, :integration, type: :controller do
       expect(response.body).to match /Welcome to the Buildit app/
     end
   end
+
 end
